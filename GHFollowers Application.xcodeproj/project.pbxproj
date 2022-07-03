@@ -15,6 +15,7 @@
 		04FF69D52871810C00FBF6E9 /* FavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69D42871810C00FBF6E9 /* FavoritesListVC.swift */; };
 		04FF69D728718B1800FBF6E9 /* GHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69D628718B1800FBF6E9 /* GHButton.swift */; };
 		04FF69D928718E2700FBF6E9 /* GHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69D828718E2700FBF6E9 /* GHTextField.swift */; };
+		04FF69DB2871A10000FBF6E9 /* FollowersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69DA2871A10000FBF6E9 /* FollowersVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		04FF69D42871810C00FBF6E9 /* FavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVC.swift; sourceTree = "<group>"; };
 		04FF69D628718B1800FBF6E9 /* GHButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHButton.swift; sourceTree = "<group>"; };
 		04FF69D828718E2700FBF6E9 /* GHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHTextField.swift; sourceTree = "<group>"; };
+		04FF69DA2871A10000FBF6E9 /* FollowersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				04FF69D628718B1800FBF6E9 /* GHButton.swift */,
 				04FF69D828718E2700FBF6E9 /* GHTextField.swift */,
 				04FF69D2287180B600FBF6E9 /* SearchVC.swift */,
+				04FF69DA2871A10000FBF6E9 /* FollowersVC.swift */,
 				04FF69D42871810C00FBF6E9 /* FavoritesListVC.swift */,
 				04FF69C728717B3000FBF6E9 /* Assets.xcassets */,
 				04FF69C928717B3000FBF6E9 /* LaunchScreen.storyboard */,
@@ -145,6 +148,7 @@
 			files = (
 				04FF69D52871810C00FBF6E9 /* FavoritesListVC.swift in Sources */,
 				04FF69D728718B1800FBF6E9 /* GHButton.swift in Sources */,
+				04FF69DB2871A10000FBF6E9 /* FollowersVC.swift in Sources */,
 				04FF69D928718E2700FBF6E9 /* GHTextField.swift in Sources */,
 				04FF69D3287180B600FBF6E9 /* SearchVC.swift in Sources */,
 				04FF69BF28717B2E00FBF6E9 /* AppDelegate.swift in Sources */,
