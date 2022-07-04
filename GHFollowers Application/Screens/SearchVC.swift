@@ -14,6 +14,7 @@ class SearchVC: UIViewController {
     let callToActionButton = GHButton(backgroundColor: .systemGreen, title: "Get Followers!")
 
     var isUsernameEntered: Bool { return usernameTextField.text!.isEmpty }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -24,7 +25,7 @@ class SearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func createDismissKeyboardTapGesture() {
