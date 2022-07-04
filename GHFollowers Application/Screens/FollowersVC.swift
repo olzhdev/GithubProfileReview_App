@@ -85,7 +85,7 @@ class FollowersVC: UIViewController {
     private func configure() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .systemBackground
     }
     
     private func constraint() {
