@@ -9,9 +9,10 @@ import UIKit
 
 class FollowersVC: UIViewController {
     
-    enum Section {
-        case main
-    }
+    enum Section { case main }
+    
+    var page = 1
+    var hasMoreFollowers = true
     
     var userName: String!
     var followersList: [Follower] = []
@@ -26,17 +27,7 @@ class FollowersVC: UIViewController {
         
         configure()
         constraint()
-        
-        NetworkManager.shared.getFollowers(username: userName, page: 1) { result in
-            switch result {
-            case .success(let followers):
-                self.followersList = followers
-                self.updateData()
-            case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
-            }
-        }
-        
+        getFollowers(username: userName, page: page)
         configureDataSource()
     }
     
@@ -45,6 +36,19 @@ class FollowersVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    func getFollowers(username: String, page: Int) {
+        NetworkManager.shared.getFollowers(username: userName, page: page) { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let followers):
+                if followers.count < 100 { self.hasMoreFollowers = false }
+                self.followersList.append(contentsOf: followers)
+                self.updateData()
+            case .failure(let error):
+                self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
     private func createThreeColumnFlowLayout() -> UICollectionViewLayout {
         let width = view.bounds.width
         let padding: CGFloat = 12
@@ -76,19 +80,28 @@ class FollowersVC: UIViewController {
         }
     }
     
-    
-    
-    
-    
-    
-    
     private func configure() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
         collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
     }
     
     private func constraint() {
         view.addSubview(collectionView)
+    }
+}
+
+extension FollowersVC: UICollectionViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let height = scrollView.frame.height
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - height {
+            guard hasMoreFollowers else {return}
+            page += 1
+            getFollowers(username: userName, page: page)
+        }
     }
 }
