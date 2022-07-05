@@ -26,6 +26,7 @@
 		04FF69F22872AD9700FBF6E9 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69F12872AD9700FBF6E9 /* ErrorMessage.swift */; };
 		04FF69F52872CF8100FBF6E9 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69F42872CF8100FBF6E9 /* FollowerCell.swift */; };
 		04FF69F72872CFF300FBF6E9 /* GHAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69F62872CFF300FBF6E9 /* GHAvatarImageView.swift */; };
+		04FF69FF2873F5ED00FBF6E9 /* GHEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69FE2873F5ED00FBF6E9 /* GHEmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		04FF69F12872AD9700FBF6E9 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		04FF69F42872CF8100FBF6E9 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		04FF69F62872CFF300FBF6E9 /* GHAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHAvatarImageView.swift; sourceTree = "<group>"; };
+		04FF69FE2873F5ED00FBF6E9 /* GHEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHEmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,13 +109,13 @@
 		04FF69E52871EFF200FBF6E9 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				04FF69FD2873F59C00FBF6E9 /* Labels */,
+				04FF69FC2873F57C00FBF6E9 /* TextFields */,
+				04FF69FB2873F57200FBF6E9 /* ImageViews */,
+				04FF69FA2873F55E00FBF6E9 /* ViewControllers */,
+				04FF69F92873F54700FBF6E9 /* Buttons */,
+				04FF69F82873F53B00FBF6E9 /* Views */,
 				04FF69F32872CF5300FBF6E9 /* Cell */,
-				04FF69E02871C66800FBF6E9 /* GHAlertVC.swift */,
-				04FF69D628718B1800FBF6E9 /* GHButton.swift */,
-				04FF69D828718E2700FBF6E9 /* GHTextField.swift */,
-				04FF69DC2871C2F600FBF6E9 /* GHTitleLabel.swift */,
-				04FF69DE2871C51700FBF6E9 /* GHBodyLabel.swift */,
-				04FF69F62872CFF300FBF6E9 /* GHAvatarImageView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -168,6 +170,55 @@
 				04FF69F42872CF8100FBF6E9 /* FollowerCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		04FF69F82873F53B00FBF6E9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69FE2873F5ED00FBF6E9 /* GHEmptyStateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04FF69F92873F54700FBF6E9 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69D628718B1800FBF6E9 /* GHButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		04FF69FA2873F55E00FBF6E9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69E02871C66800FBF6E9 /* GHAlertVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		04FF69FB2873F57200FBF6E9 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69F62872CFF300FBF6E9 /* GHAvatarImageView.swift */,
+			);
+			path = ImageViews;
+			sourceTree = "<group>";
+		};
+		04FF69FC2873F57C00FBF6E9 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69D828718E2700FBF6E9 /* GHTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		04FF69FD2873F59C00FBF6E9 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				04FF69DE2871C51700FBF6E9 /* GHBodyLabel.swift */,
+				04FF69DC2871C2F600FBF6E9 /* GHTitleLabel.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +308,7 @@
 				04FF69E12871C66800FBF6E9 /* GHAlertVC.swift in Sources */,
 				04FF69DD2871C2F600FBF6E9 /* GHTitleLabel.swift in Sources */,
 				04FF69C128717B2E00FBF6E9 /* SceneDelegate.swift in Sources */,
+				04FF69FF2873F5ED00FBF6E9 /* GHEmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
