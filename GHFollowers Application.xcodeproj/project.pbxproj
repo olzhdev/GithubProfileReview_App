@@ -35,6 +35,8 @@
 		04FF6A0C28756D9D00FBF6E9 /* GHItemInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6A0B28756D9D00FBF6E9 /* GHItemInfoVC.swift */; };
 		04FF6A0E2875710200FBF6E9 /* GHRepoItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6A0D2875710200FBF6E9 /* GHRepoItemVC.swift */; };
 		04FF6A10287574D200FBF6E9 /* GHFollowerItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6A0F287574D200FBF6E9 /* GHFollowerItemVC.swift */; };
+		04FF6A132875908400FBF6E9 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6A122875908400FBF6E9 /* Date+Ext.swift */; };
+		04FF6A15287590B700FBF6E9 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6A14287590B700FBF6E9 /* String+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		04FF6A0B28756D9D00FBF6E9 /* GHItemInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHItemInfoVC.swift; sourceTree = "<group>"; };
 		04FF6A0D2875710200FBF6E9 /* GHRepoItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHRepoItemVC.swift; sourceTree = "<group>"; };
 		04FF6A0F287574D200FBF6E9 /* GHFollowerItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowerItemVC.swift; sourceTree = "<group>"; };
+		04FF6A122875908400FBF6E9 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		04FF6A14287590B700FBF6E9 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				04FF69E22871D3F700FBF6E9 /* UIViewController+Ext.swift */,
+				04FF6A122875908400FBF6E9 /* Date+Ext.swift */,
+				04FF6A14287590B700FBF6E9 /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04FF6A132875908400FBF6E9 /* Date+Ext.swift in Sources */,
 				04FF6A0C28756D9D00FBF6E9 /* GHItemInfoVC.swift in Sources */,
 				04FF69EC28728CE400FBF6E9 /* User.swift in Sources */,
 				04FF6A0728745AC200FBF6E9 /* Constants.swift in Sources */,
@@ -344,6 +351,7 @@
 				04FF6A0A287567D200FBF6E9 /* GHItemInfoView.swift in Sources */,
 				04FF69EF2872939900FBF6E9 /* NetworkManager.swift in Sources */,
 				04FF6A0128741FDD00FBF6E9 /* UserInfoVC.swift in Sources */,
+				04FF6A15287590B700FBF6E9 /* String+Ext.swift in Sources */,
 				04FF69F72872CFF300FBF6E9 /* GHAvatarImageView.swift in Sources */,
 				04FF69E12871C66800FBF6E9 /* GHAlertVC.swift in Sources */,
 				04FF69DD2871C2F600FBF6E9 /* GHTitleLabel.swift in Sources */,
