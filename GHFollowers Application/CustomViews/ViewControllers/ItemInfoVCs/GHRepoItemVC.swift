@@ -13,9 +13,13 @@ class GHRepoItemVC: GHItemInfoVC {
         configureItems()
     }
     
-    func configureItems(){
+    private func configureItems(){
         itemInfoViewOne.set(itemInfoType: .repos, withCount: user.publicRepos)
         itemInfoViewTwo.set(itemInfoType: .gists, withCount: user.publicGists)
         actionButton.set(backgroundColor: .systemPurple, title: "Gihub Profile")
+    }
+    
+    override func actionButtonTapped() {
+        userInfoDelegate.didTapGetGitHubProfile(for: user)
     }
 }

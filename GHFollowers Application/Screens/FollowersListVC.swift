@@ -7,7 +7,11 @@
 
 import UIKit
 
-class FollowersVC: UIViewController {
+protocol FollowersListVCDeleage: AnyObject {
+    func didRequestFollowers(with username: String)
+}
+
+class FollowersListVC: UIViewController {
     
     enum Section { case main }
     
@@ -114,7 +118,7 @@ class FollowersVC: UIViewController {
 
 }
 
-extension FollowersVC: UICollectionViewDelegate {
+extension FollowersListVC: UICollectionViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let height = scrollView.frame.height
         let offsetY = scrollView.contentOffset.y
@@ -133,12 +137,13 @@ extension FollowersVC: UICollectionViewDelegate {
         
         let destVC = UserInfoVC()
         destVC.userName = follower.login
+        destVC.followerListVCDelegate = self
         let navVC = UINavigationController(rootViewController: destVC)
         present(navVC, animated: true)
     }
 }
 
-extension FollowersVC: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowersListVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {return}
@@ -150,5 +155,17 @@ extension FollowersVC: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         updateData(on: followersList)
+    }
+}
+
+extension FollowersListVC: FollowersListVCDeleage {
+    func didRequestFollowers(with username: String) {
+        self.userName = username
+        title = username
+        followersList.removeAll()
+        filteredFollowers.removeAll()
+        page = 1
+        collectionView.setContentOffset(.zero, animated: true)
+        getFollowers(username: username, page: page)
     }
 }
