@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		045CCD7A2876F18600246FE0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CCD792876F18600246FE0 /* PersistenceManager.swift */; };
 		04FF69BF28717B2E00FBF6E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69BE28717B2E00FBF6E9 /* AppDelegate.swift */; };
 		04FF69C128717B2E00FBF6E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF69C028717B2E00FBF6E9 /* SceneDelegate.swift */; };
 		04FF69C828717B3000FBF6E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FF69C728717B3000FBF6E9 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		045CCD792876F18600246FE0 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		04FF69BB28717B2E00FBF6E9 /* GHFollowers Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHFollowers Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FF69BE28717B2E00FBF6E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04FF69C028717B2E00FBF6E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				04FF69EE2872939900FBF6E9 /* NetworkManager.swift */,
+				045CCD792876F18600246FE0 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				04FF6A0A287567D200FBF6E9 /* GHItemInfoView.swift in Sources */,
 				04FF69EF2872939900FBF6E9 /* NetworkManager.swift in Sources */,
 				04FF6A0128741FDD00FBF6E9 /* UserInfoVC.swift in Sources */,
+				045CCD7A2876F18600246FE0 /* PersistenceManager.swift in Sources */,
 				04FF6A15287590B700FBF6E9 /* String+Ext.swift in Sources */,
 				04FF69F72872CFF300FBF6E9 /* GHAvatarImageView.swift in Sources */,
 				04FF69E12871C66800FBF6E9 /* GHAlertVC.swift in Sources */,
