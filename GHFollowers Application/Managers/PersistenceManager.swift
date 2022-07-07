@@ -18,7 +18,7 @@ enum PersistenceManager {
         static let favorites = "favorites"
     }
     
-    static func retreieveData(completed: @escaping (Result<[Follower], GHError>) -> Void) {
+    static func retrieveFavorites(completed: @escaping (Result<[Follower], GHError>) -> Void) {
         guard let favoritesData = defaults.object(forKey: Keys.favorites) as? Data else {
             completed(.success([]))
             return
@@ -46,7 +46,7 @@ enum PersistenceManager {
     
     static func uptade(favorite: Follower, action: PersistenceManagerActions, completed: @escaping (GHError?) -> Void) {
         
-        retreieveData { result in
+        retrieveFavorites { result in
             
             switch result {
             case .success(let favorites):
