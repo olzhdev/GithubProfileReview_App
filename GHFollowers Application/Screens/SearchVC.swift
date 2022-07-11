@@ -25,11 +25,12 @@ class SearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        usernameTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func createDismissKeyboardTapGesture() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
     
@@ -40,16 +41,17 @@ class SearchVC: UIViewController {
             return
         }
         
-        let followerListVC = FollowersListVC()
-        followerListVC.userName = usernameTextField.text
-        followerListVC.title = usernameTextField.text
+        usernameTextField.resignFirstResponder()
+        
+        let followerListVC = FollowersListVC(username: usernameTextField.text!)
+
         navigationController?.pushViewController(followerListVC, animated: true)
     }
     
     
     
     private func configure() {
-        logoImageView.image = UIImage(named: "gh-logo")
+        logoImageView.image = Images.ghLogo
         usernameTextField.delegate = self
         callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
     }

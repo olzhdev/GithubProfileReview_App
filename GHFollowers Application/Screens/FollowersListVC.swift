@@ -42,6 +42,15 @@ class FollowersListVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    init(username: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.userName = username
+        title = username
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func getFollowers(username: String, page: Int) {
         showLoadingView()
