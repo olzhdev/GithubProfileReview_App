@@ -7,9 +7,6 @@
 
 import UIKit
 
-protocol FollowersListVCDeleage: AnyObject {
-    func didRequestFollowers(with username: String)
-}
 
 class FollowersListVC: UIViewController {
     
@@ -155,7 +152,6 @@ class FollowersListVC: UIViewController {
     private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for a username"
         navigationItem.searchController = searchController
     }
@@ -187,10 +183,15 @@ extension FollowersListVC: UICollectionViewDelegate {
     }
 }
 
-extension FollowersListVC: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowersListVC: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else {return}
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            filteredFollowers.removeAll()
+            updateData(on: followersList)
+            isSearching = false
+            return
+        }
         isSearching = true
         filteredFollowers = followersList.filter({ $0.login.lowercased().contains(filter.lowercased()) })
         updateData(on: filteredFollowers)
@@ -202,14 +203,14 @@ extension FollowersListVC: UISearchResultsUpdating, UISearchBarDelegate {
     }
 }
 
-extension FollowersListVC: FollowersListVCDeleage {
+extension FollowersListVC: UserInfoVCDelegate {
     func didRequestFollowers(with username: String) {
         self.userName = username
         title = username
         followersList.removeAll()
         filteredFollowers.removeAll()
         page = 1
-        collectionView.setContentOffset(.zero, animated: true)
+        collectionView.scrollToItem(at: IndexPath.init(item: 0, section: 0), at: .top, animated: true)
         getFollowers(username: username, page: page)
     }
 }

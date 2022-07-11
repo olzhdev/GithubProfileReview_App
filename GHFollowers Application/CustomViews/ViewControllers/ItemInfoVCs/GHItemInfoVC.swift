@@ -15,7 +15,6 @@ class GHItemInfoVC: UIViewController {
     let actionButton = GHButton()
     
     var user: User!
-    weak var userInfoDelegate: UserInfoVCDelegate!
 
     init(user: User) {
         super.init(nibName: nil, bundle: nil)

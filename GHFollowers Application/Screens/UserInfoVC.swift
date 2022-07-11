@@ -8,9 +8,9 @@
 import UIKit
 
 protocol UserInfoVCDelegate: AnyObject {
-    func didTapGetGitHubProfile(for user: User)
-    func didTapGetFollowersButton(for user: User)
+    func didRequestFollowers(with username: String)
 }
+
 
 class UserInfoVC: UIViewController {
     
@@ -20,7 +20,7 @@ class UserInfoVC: UIViewController {
     let dateLabel = GHBodyLabel(textAlignment: .center)
     
     var userName: String!
-    var followerListVCDelegate: FollowersListVCDeleage!
+    var followerListVCDelegate: UserInfoVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,10 +64,10 @@ class UserInfoVC: UIViewController {
     func configureUIElements(with user: User) {
         
         let repoItemVC = GHRepoItemVC(user: user)
-        repoItemVC.userInfoDelegate = self
+        repoItemVC.GHRepoItemVCProtocolDelegate = self
         
         let followerItemVC = GHFollowerItemVC(user: user)
-        followerItemVC.userInfoDelegate = self
+        followerItemVC.GHFollowerItemVCDelegate = self
         
         self.add(childVC: GHUserInfoHeaderVC(user: user), to: self.headerView)
         self.add(childVC: repoItemVC, to: self.itemViewOne)
@@ -92,7 +92,7 @@ class UserInfoVC: UIViewController {
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 180),
+            headerView.heightAnchor.constraint(equalToConstant: 210),
             
             itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
             itemViewOne.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -113,16 +113,7 @@ class UserInfoVC: UIViewController {
     
 }
 
-extension UserInfoVC: UserInfoVCDelegate {
-    func didTapGetGitHubProfile(for user: User) {
-        guard let url = URL(string: user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to user is invalid.", buttonTitle: "Ok")
-            return
-        }
-        presentSafariVC(with: url)
-
-    }
-    
+extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
     func didTapGetFollowersButton(for user: User) {
         guard user.followers != 0 else {
             presentGFAlertOnMainThread(title: "No followers", message: "User has no followers.", buttonTitle: "Ok")
@@ -131,6 +122,13 @@ extension UserInfoVC: UserInfoVCDelegate {
         followerListVCDelegate.didRequestFollowers(with: user.login)
         dismissVC()
     }
-
     
+    func didTapGetGitHubProfile(for user: User) {
+        guard let url = URL(string: user.htmlUrl) else {
+            presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to user is invalid.", buttonTitle: "Ok")
+            return
+        }
+        presentSafariVC(with: url)
+    }
 }
+

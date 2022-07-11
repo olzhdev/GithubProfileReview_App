@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol GHRepoItemVCDelegate: AnyObject {
+    func didTapGetGitHubProfile(for user: User)
+}
+
 class GHRepoItemVC: GHItemInfoVC {
+    weak var GHRepoItemVCProtocolDelegate: GHRepoItemVCDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureItems()
@@ -20,6 +26,6 @@ class GHRepoItemVC: GHItemInfoVC {
     }
     
     override func actionButtonTapped() {
-        userInfoDelegate.didTapGetGitHubProfile(for: user)
+        GHRepoItemVCProtocolDelegate.didTapGetGitHubProfile(for: user)
     }
 }
