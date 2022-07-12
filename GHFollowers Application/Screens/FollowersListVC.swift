@@ -52,27 +52,31 @@ class FollowersListVC: UIViewController {
     func getFollowers(username: String, page: Int) {
         showLoadingView()
         NetworkManager.shared.getFollowers(username: userName, page: page) { [weak self] result in
-            self?.dismissLoadingView()
-            
             guard let self = self else {return}
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let followers):
-                if followers.count < 100 { self.hasMoreFollowers = false }
-                self.followersList.append(contentsOf: followers)
-                
-                if self.followersList.isEmpty {
-                    let message = "This user doesn't have any followers. Go follow them 😀"
-                    DispatchQueue.main.async {
-                        self.showEmptyStateView(message: message, in: self.view)
-                    }
-                    return
-                }
-                self.updateData(on: self.followersList)
+                self.updateUI(with: followers)
                 
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGHAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+    }
+    
+    private func updateUI(with followers: [Follower]) {
+        if followers.count < 100 { self.hasMoreFollowers = false }
+        self.followersList.append(contentsOf: followers)
+        
+        if self.followersList.isEmpty {
+            let message = "This user doesn't have any followers. Go follow them 😀"
+            DispatchQueue.main.async {
+                self.showEmptyStateView(message: message, in: self.view)
+            }
+            return
+        }
+        self.updateData(on: self.followersList)
     }
     
     private func configureViewController() {
@@ -93,20 +97,24 @@ class FollowersListVC: UIViewController {
             
             switch result {
             case .success(let user):
-                let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
-                PersistenceManager.uptade(favorite: favorite, action: .add) { [weak self] error in
-                    guard let self = self else { return }
-                    guard let error = error else {
-                        self.presentGFAlertOnMainThread(title: "Success!", message: "You successfully favorited this user", buttonTitle: "Ok")
-                        return
-                    }
-                    
-                    self.presentGFAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
-                }
+                self.addUserToFavorite(user: user)
                 
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGHAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
+        }
+    }
+    
+    private func addUserToFavorite(user: User) {
+        let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+        PersistenceManager.uptade(favorite: favorite, action: .add) { [weak self] error in
+            guard let self = self else { return }
+            guard let error = error else {
+                self.presentGHAlertOnMainThread(title: "Success!", message: "You successfully favorited this user", buttonTitle: "Ok")
+                return
+            }
+            
+            self.presentGHAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
         }
     }
     
