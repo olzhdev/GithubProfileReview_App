@@ -22,7 +22,7 @@ class GHRepoItemVC: GHItemInfoVC {
     private func configureItems(){
         itemInfoViewOne.set(itemInfoType: .repos, withCount: user.publicRepos)
         itemInfoViewTwo.set(itemInfoType: .gists, withCount: user.publicGists)
-        actionButton.set(backgroundColor: .systemPurple, title: "Gihub Profile")
+        actionButton.set(color: .systemPurple, title: "Gihub Profile")
     }
     
     override func actionButtonTapped() {

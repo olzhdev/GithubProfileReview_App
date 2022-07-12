@@ -9,6 +9,7 @@ import UIKit
 
 
 class FollowersListVC: UIViewController {
+    // MARK: - Properties
     
     enum Section { case main }
     
@@ -25,6 +26,7 @@ class FollowersListVC: UIViewController {
     
     var isSearching = false
 
+    // MARK: - Inits
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -49,7 +51,10 @@ class FollowersListVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getFollowers(username: String, page: Int) {
+    
+    // MARK: - Private
+    
+    private func getFollowers(username: String, page: Int) {
         showLoadingView()
         NetworkManager.shared.getFollowers(username: userName, page: page) { [weak self] result in
             guard let self = self else {return}
@@ -140,7 +145,7 @@ class FollowersListVC: UIViewController {
         })
     }
     
-    func updateData(on followerArray: [Follower]) {
+    private func updateData(on followerArray: [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
         snapshot.appendItems(followerArray)
@@ -165,6 +170,8 @@ class FollowersListVC: UIViewController {
     }
 
 }
+
+// MARK: - Extensions
 
 extension FollowersListVC: UICollectionViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

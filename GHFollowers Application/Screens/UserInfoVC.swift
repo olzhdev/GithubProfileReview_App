@@ -13,6 +13,7 @@ protocol UserInfoVCDelegate: AnyObject {
 
 
 class UserInfoVC: UIViewController {
+    // MARK: - Properties
     
     let headerView = UIView()
     let itemViewOne = UIView()
@@ -22,12 +23,18 @@ class UserInfoVC: UIViewController {
     var userName: String!
     var followerListVCDelegate: UserInfoVCDelegate!
     
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         getUserInfo()
         constraint()
     }
+    
+    
+    // MARK: - Private
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
@@ -39,7 +46,7 @@ class UserInfoVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func add(childVC: UIViewController, to containerView: UIView) {
+    private func add(childVC: UIViewController, to containerView: UIView) {
         //ContainerView: headerView
         addChild(childVC)
         containerView.addSubview(childVC.view)
@@ -61,7 +68,7 @@ class UserInfoVC: UIViewController {
         }
     }
     
-    func configureUIElements(with user: User) {
+    private func configureUIElements(with user: User) {
         
         let repoItemVC = GHRepoItemVC(user: user)
         repoItemVC.GHRepoItemVCProtocolDelegate = self
@@ -112,6 +119,9 @@ class UserInfoVC: UIViewController {
     }
     
 }
+
+
+// MARK: - Extensions
 
 extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
     func didTapGetFollowersButton(for user: User) {
