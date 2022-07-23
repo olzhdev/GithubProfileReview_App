@@ -29,6 +29,8 @@ class FollowersListVC: UIViewController {
     // MARK: - Inits
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+
         configureViewController()
         configureCollectionView()
         getFollowers(username: userName, page: page)
@@ -38,7 +40,6 @@ class FollowersListVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     init(username: String) {
@@ -87,41 +88,9 @@ class FollowersListVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem = addButton
     }
     
-    @objc func addButtonTapped() {
-        self.showLoadingView()
-        
-        NetworkManager.shared.getUserInfo(username: userName) { [weak self] result in
-            guard let self = self else {return}
-            
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let user):
-                self.addUserToFavorite(user: user)
-                
-            case .failure(let error):
-                self.presentGHAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-            }
-        }
-    }
-    
-    private func addUserToFavorite(user: User) {
-        let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
-        PersistenceManager.uptade(favorite: favorite, action: .add) { [weak self] error in
-            guard let self = self else { return }
-            guard let error = error else {
-                self.presentGHAlertOnMainThread(title: "Success!", message: "You successfully favorited this user", buttonTitle: "Ok")
-                return
-            }
-            
-            self.presentGHAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
-        }
-    }
+
     
     private func createThreeColumnFlowLayout() -> UICollectionViewLayout {
         let width = view.bounds.width
@@ -191,10 +160,8 @@ extension FollowersListVC: UICollectionViewDelegate {
         let follower = activeArray[indexPath.item]
         
         let destVC = UserInfoVC(username: follower.login)
-        //destVC.userName = follower.login
-        destVC.userInfoVCDelegate = self
-        let navVC = UINavigationController(rootViewController: destVC)
-        present(navVC, animated: true)
+        
+        navigationController?.pushViewController(destVC, animated: true)
     }
 }
 
@@ -218,14 +185,3 @@ extension FollowersListVC: UISearchResultsUpdating {
     }
 }
 
-extension FollowersListVC: UserInfoVCDelegate {
-    func didRequestFollowers(with username: String) {
-        self.userName = username
-        title = username
-        followersList.removeAll()
-        filteredFollowers.removeAll()
-        page = 1
-        collectionView.scrollToItem(at: IndexPath.init(item: 0, section: 0), at: .top, animated: true)
-        getFollowers(username: username, page: page)
-    }
-}

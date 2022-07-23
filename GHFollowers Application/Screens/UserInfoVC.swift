@@ -7,14 +7,6 @@
 
 import UIKit
 
-//protocol UserInfoVCDelegate: AnyObject {
-//    func didRequestFollowers(with username: String)
-//}
-
-protocol UserInfoVCDelegate: AnyObject {
-    func didRequestFollowers(with username: String)
-}
-
 class UserInfoVC: UIViewController {
     // MARK: - Properties
     
@@ -23,17 +15,21 @@ class UserInfoVC: UIViewController {
     let itemViewTwo = UIView()
     let dateLabel = GHBodyLabel(textAlignment: .center)
     
-    var userName: String!
-    weak var userInfoVCDelegate: UserInfoVCDelegate!
-    
+    var userName: String!    
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         getUserInfo()
         configureViewController()
         constraint()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     // MARK: - Inits
@@ -51,8 +47,40 @@ class UserInfoVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        navigationItem.rightBarButtonItem = doneButton
+        ///Add to fav
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc func addButtonTapped() {
+        self.showLoadingView()
+        
+        NetworkManager.shared.getUserInfo(username: userName) { [weak self] result in
+            guard let self = self else {return}
+            
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let user):
+                self.addUserToFavorite(user: user)
+                
+            case .failure(let error):
+                self.presentGHAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    private func addUserToFavorite(user: User) {
+        let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+        PersistenceManager.uptade(favorite: favorite, action: .add) { [weak self] error in
+            guard let self = self else { return }
+            guard let error = error else {
+                self.presentGHAlertOnMainThread(title: "Success!", message: "You successfully favorited this user", buttonTitle: "Ok")
+                return
+            }
+            
+            self.presentGHAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
+        }
     }
     
     @objc private func dismissVC() {
@@ -109,7 +137,7 @@ class UserInfoVC: UIViewController {
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 210),
@@ -143,8 +171,8 @@ extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
             return
         }
         
-        print("1: \(user)")
-        userInfoVCDelegate.didRequestFollowers(with: userName)
+        let followerListVC = FollowersListVC(username: user.login)
+        navigationController?.pushViewController(followerListVC, animated: true)
         dismissVC()
     }
     
