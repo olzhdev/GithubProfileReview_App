@@ -2,16 +2,19 @@
 //  GHSecondaryTitleLabel.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 05.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom secondary title label
 class GHSecondaryTitleLabel: UILabel {
+    
+    // MARK: - Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +26,9 @@ class GHSecondaryTitleLabel: UILabel {
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
     }
 
-    private func configure() {
+    // MARK: - Private
+
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         textColor = .secondaryLabel
         adjustsFontSizeToFitWidth = true

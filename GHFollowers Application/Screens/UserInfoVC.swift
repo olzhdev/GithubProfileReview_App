@@ -2,20 +2,26 @@
 //  UserInfoVC.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 05.07.2022.
+//  
 //
 
 import UIKit
 
+/// User Information VC
 class UserInfoVC: UIViewController {
-    // MARK: - Properties
     
+    // MARK: - Properties and elements
+    
+    /// Header view
     let headerView = UIView()
+    /// Item views in Header view
     let itemViewOne = UIView()
     let itemViewTwo = UIView()
+    /// Date label
     let dateLabel = GHBodyLabel(textAlignment: .center)
-    
+    /// Username
     var userName: String!    
+    
     
     // MARK: - Lifecycle
     
@@ -32,6 +38,7 @@ class UserInfoVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    
     // MARK: - Inits
     
     init(username: String) {
@@ -43,11 +50,12 @@ class UserInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // MARK: - Private
     
+    /// Configuration of screen
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        ///Add to fav
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = addButton
     }
@@ -55,7 +63,7 @@ class UserInfoVC: UIViewController {
     @objc func addButtonTapped() {
         self.showLoadingView()
         
-        NetworkManager.shared.getUserInfo(username: userName) { [weak self] result in
+        APICaller.shared.getUserInfo(username: userName) { [weak self] result in
             guard let self = self else {return}
             
             self.dismissLoadingView()
@@ -70,7 +78,27 @@ class UserInfoVC: UIViewController {
         }
     }
     
+    /// Fetch user info
+    private func getUserInfo() {
+        
+        APICaller.shared.getUserInfo(username: userName) { [weak self] result in
+            guard let self = self else {return}
+            
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async { self.configureUIElements(with: user) }
+                
+            case .failure(let error):
+                self.presentGHAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    
+    /// Adds user to favorites
+    /// - Parameter user: User model
     private func addUserToFavorite(user: User) {
+        
         let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
         PersistenceManager.uptade(favorite: favorite, action: .add) { [weak self] error in
             guard let self = self else { return }
@@ -87,28 +115,21 @@ class UserInfoVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Adds VCs to given container view
+    /// - Parameters:
+    ///   - childVC: Which VC to add
+    ///   - containerView: Where to add
     private func add(childVC: UIViewController, to containerView: UIView) {
-        //ContainerView: headerView
         addChild(childVC)
         containerView.addSubview(childVC.view)
         childVC.view.frame = containerView.bounds
         childVC.didMove(toParent: self)
     }
     
-    private func getUserInfo() {
-        NetworkManager.shared.getUserInfo(username: userName) { [weak self] result in
-            guard let self = self else {return}
-            
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async { self.configureUIElements(with: user) }
-                
-            case .failure(let error):
-                self.presentGHAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-            }
-        }
-    }
+
     
+    /// Configure custom-dynamic UI elements
+    /// - Parameter user: User model
     private func configureUIElements(with user: User) {
         
         let repoItemVC = GHRepoItemVC(user: user)
@@ -122,6 +143,7 @@ class UserInfoVC: UIViewController {
         self.add(childVC: followerItemVC, to: self.itemViewTwo)
         self.dateLabel.text = "GitHub since \(user.createdAt.convertToMonthYear())"
     }
+    
     
     private func constraint(){
         view.addSubview(headerView)
@@ -165,7 +187,11 @@ class UserInfoVC: UIViewController {
 // MARK: - Extensions
 
 extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
+    
+    /// Method when click to GetFollower button
+    /// - Parameter user: User model
     func didTapGetFollowersButton(for user: User) {
+        
         guard user.followers != 0 else {
             presentGHAlertOnMainThread(title: "No followers", message: "User has no followers.", buttonTitle: "Ok")
             return
@@ -176,7 +202,10 @@ extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
         dismissVC()
     }
     
+    /// Method when clikc to GoProfile button
+    /// - Parameter user: User model
     func didTapGetGitHubProfile(for user: User) {
+        
         guard let url = URL(string: user.htmlUrl) else {
             presentGHAlertOnMainThread(title: "Invalid URL", message: "The url attached to user is invalid.", buttonTitle: "Ok")
             return

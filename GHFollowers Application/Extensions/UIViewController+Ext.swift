@@ -2,7 +2,7 @@
 //  UIViewController+Ext.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
@@ -10,6 +10,12 @@ import SafariServices
 fileprivate var containerView: UIView!
 
 extension UIViewController {
+    
+    ///  Presents custom alert
+    /// - Parameters:
+    ///   - title: Title
+    ///   - message: Message of body
+    ///   - buttonTitle: Button title
     func presentGHAlertOnMainThread(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
             let alertVC = GHAlertController(title: title, message: message, buttonTitle: buttonTitle)
@@ -19,6 +25,7 @@ extension UIViewController {
         }
     }
     
+    /// Shows loading view while fetching data
     func showLoadingView() {
         containerView = UIView(frame: view.bounds)
         view.addSubview(containerView)
@@ -43,6 +50,7 @@ extension UIViewController {
         activityIndicator.startAnimating()
     }
     
+    /// Dismiss loading view
     func dismissLoadingView() {
         DispatchQueue.main.async {
             containerView.removeFromSuperview()
@@ -50,12 +58,18 @@ extension UIViewController {
         }
     }
     
+    /// Shows when view is empty
+    /// - Parameters:
+    ///   - message: Message for user
+    ///   - view: View which empty state adds
     func showEmptyStateView(message: String, in view: UIView) {
         let emptyStateView = GHEmptyStateView(message: message)
         emptyStateView.frame = view.bounds
         view.addSubview(emptyStateView)
     }
     
+    /// Shows Safari VC
+    /// - Parameter url: URL to open
     func presentSafariVC(with url: URL){
         let safariVC = SFSafariViewController(url: url)
         safariVC.preferredBarTintColor = .systemGreen

@@ -2,16 +2,22 @@
 //  FavoritesListVC.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+// 
 //
 
 import UIKit
 
 class FavoritesListVC: UIViewController {
+    // MARK: - Properties and elements
     
+    /// Main view
     let tableView = UITableView()
+    /// Favorites model array
     var favorites: [Follower] = []
 
+    
+    // MARK: - Inits
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -24,7 +30,10 @@ class FavoritesListVC: UIViewController {
     }
 
     
-    func getFavorites() {
+    // MARK: - Private
+    
+    /// Get favorites from userDef and update UI
+    private func getFavorites() {
         PersistenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return }
             
@@ -39,9 +48,11 @@ class FavoritesListVC: UIViewController {
         }
     }
     
+    /// Updates UI with given models
+    /// - Parameter favorites: Favorites model array
     private func updateUI(with favorites: [Follower]) {
         if favorites.isEmpty {
-            self.showEmptyStateView(message: "No favorites?/nAdd one on the follower screen.", in: self.view)
+            self.showEmptyStateView(message: "No favorites? Add one on the profile screen.", in: self.view)
         } else {
             self.favorites = favorites
             DispatchQueue.main.async {
@@ -51,6 +62,7 @@ class FavoritesListVC: UIViewController {
         }
     }
     
+    /// TableView configuration
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
@@ -61,6 +73,7 @@ class FavoritesListVC: UIViewController {
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
     }
     
+    /// VC configuration
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Favorites"
@@ -69,7 +82,11 @@ class FavoritesListVC: UIViewController {
 
 }
 
+
+// MARK: - Extensions
+
 extension FavoritesListVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
         let favorite = favorites[indexPath.row]
@@ -77,20 +94,20 @@ extension FavoritesListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favorites.count
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-//        let destVC = FollowersListVC(username: favorite.login)
-//
-//        navigationController?.pushViewController(destVC, animated: true)
         
         let userInfoVC = UserInfoVC(username: favorite.login)
 
         navigationController?.pushViewController(userInfoVC, animated: true)
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }

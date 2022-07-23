@@ -2,16 +2,18 @@
 //  GHTitleLabel.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
 //
 
 import UIKit
 
+/// Custom title view
 class GHTitleLabel: UILabel {
-
+    
+    // MARK: - Inits
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -23,8 +25,10 @@ class GHTitleLabel: UILabel {
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
-
-    private func configure() {
+    
+    
+    // MARK: - Private
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         textColor = .label
         adjustsFontSizeToFitWidth = true

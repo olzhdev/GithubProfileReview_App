@@ -2,17 +2,21 @@
 //  FollowerCell.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 04.07.2022.
-//
+//  
 
 import UIKit
 
+/// Custom cell for followers vc
 class FollowerCell: UICollectionViewCell {
+    
+    // MARK: - Properties and elements
     static let reuseID = "FollowerCell"
     
     let avatarImageView = GHAvatarImageView(frame: .zero)
     let usernameLabel = GHTitleLabel(textAlignment: .center, fontSize: 16)
     
+    
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -22,11 +26,16 @@ class FollowerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(follower: Follower) {
+    // MARK: - Public
+    /// Configure cell
+    /// - Parameter follower: Follower model
+    public func set(follower: Follower) {
         avatarImageView.downloadImage(fromURL: follower.avatarUrl)
         usernameLabel.text = follower.login
     }
     
+    
+    // MARK: - Private
     private func configure() {
         let padding: CGFloat = 8
         addSubview(avatarImageView)

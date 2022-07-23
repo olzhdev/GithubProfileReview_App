@@ -2,11 +2,12 @@
 //  ErrorMessage.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 04.07.2022.
+//  .
 //
 
 import Foundation
 
+/// Custom errors
 enum GHError: String, Error {
     case invalidUsername = "This username created invalid request. Please try again."
     case unableToComplete = "Unable to complete request. Please check your internet connection."

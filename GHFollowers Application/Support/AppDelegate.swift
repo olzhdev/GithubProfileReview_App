@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit

@@ -2,33 +2,41 @@
 //  FavoriteCell.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 10.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom cell for favorites vc
 class FavoriteCell: UITableViewCell {
-
+    
+    // MARK: - Properties and elements
     static let reuseID = "FavoriteCell"
     
     let avatarImageView = GHAvatarImageView(frame: .zero)
     let usernameLabel = GHTitleLabel(textAlignment: .left, fontSize: 26)
     
+    
+    // MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(favorite: Follower) {
+    // MARK: - Public
+    /// Configure cell
+    /// - Parameter favorite: Favorite model
+    public func set(favorite: Follower) {
         avatarImageView.downloadImage(fromURL: favorite.avatarUrl)
         usernameLabel.text = favorite.login
     }
     
-    private func configure() {
+    // MARK: - Private
+    private func configureUI() {
         addSubview(avatarImageView)
         addSubview(usernameLabel)
         

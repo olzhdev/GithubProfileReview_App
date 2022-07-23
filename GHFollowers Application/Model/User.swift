@@ -2,7 +2,7 @@
 //  User.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 04.07.2022.
+// 
 //
 
 import Foundation

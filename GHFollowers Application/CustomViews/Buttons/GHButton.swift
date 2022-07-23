@@ -2,15 +2,18 @@
 //  GFButton.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom button
 class GHButton: UIButton {
+    
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -22,15 +25,21 @@ class GHButton: UIButton {
         set(color: color, title: title)
     }
     
-    private func configure() {
+    
+    // MARK: - Public
+    public func set(color: UIColor, title: String) {
+        configuration?.title = title
+        configuration?.baseBackgroundColor = color
+        configuration?.baseForegroundColor = color
+    }
+    
+    
+    // MARK: - Private
+    private func configureUI() {
         configuration?.cornerStyle = .medium
         configuration = .tinted()
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func set(color: UIColor, title: String) {
-        configuration?.title = title
-        configuration?.baseBackgroundColor = color
-        configuration?.baseForegroundColor = color
-    }
+
 }

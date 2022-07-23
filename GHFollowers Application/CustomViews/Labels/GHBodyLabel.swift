@@ -2,16 +2,19 @@
 //  GHBodyLabel.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom body label
 class GHBodyLabel: UILabel {
+    
+    // MARK: - Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +26,8 @@ class GHBodyLabel: UILabel {
         self.textAlignment = textAlignment
     }
 
-    private func configure() {
+    // MARK: - Private
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         textColor = .secondaryLabel
         adjustsFontSizeToFitWidth = true

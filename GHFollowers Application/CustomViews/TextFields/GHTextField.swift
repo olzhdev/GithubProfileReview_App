@@ -2,23 +2,28 @@
 //  GHTextField.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom text field
 class GHTextField: UITextField {
+    // MARK: - Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+    
+    // MARK: - Private
+
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.cornerRadius = 10

@@ -2,13 +2,15 @@
 //  GHAlertController.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
 
+/// Custom alert controller
 class GHAlertController: UIViewController {
     
+    // MARK: - Properties and elements
     let containerView = UIView()
     let titleLabel = GHTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel = GHBodyLabel(textAlignment: .center)
@@ -20,6 +22,8 @@ class GHAlertController: UIViewController {
     
     var padding: CGFloat = 20
     
+    
+    // MARK: - Inits
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
         self.alertTitle = title
@@ -30,18 +34,21 @@ class GHAlertController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
-        configure()
+        configureUI()
         constraint()
     }
     
+    // MARK: - Private
     @objc func dismissVC() {
         dismiss(animated: true)
     }
     
-    private func configure() {
+    private func configureUI() {
         containerView.layer.cornerRadius = 16
         containerView.layer.borderColor = UIColor.white.cgColor
         containerView.layer.borderWidth = 2

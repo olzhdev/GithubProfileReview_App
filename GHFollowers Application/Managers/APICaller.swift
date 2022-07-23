@@ -2,19 +2,35 @@
 //  NetworkManager.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 04.07.2022.
+//  
 //
 
 import UIKit
 
-class NetworkManager {
-    static let shared = NetworkManager()
+///  Object to manage API calls
+final class APICaller {
+    // MARK: - Properties
+    
+    /// Singleton
+    public static let shared = APICaller()
+    /// Private constructor
     private init() {}
     
-    private let baseUrl = "https://api.github.com/users/"
+    /// Cache
     let cache = NSCache<NSString, UIImage>()
+    /// Base URL
+    private let baseUrl = "https://api.github.com/users/"
 
-    func getFollowers(username: String, page: Int, completed: @escaping (Result<[Follower], GHError>) -> Void) {
+    
+    // MARK: - Public
+    
+    /// Get followers of user
+    /// - Parameters:
+    ///   - username: Username
+    ///   - page: Page number, for pagination
+    ///   - completed: Callback
+    public func getFollowers(username: String, page: Int, completed: @escaping (Result<[Follower], GHError>) -> Void) {
+        
         let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let url = URL(string: endpoint) else {
@@ -45,12 +61,16 @@ class NetworkManager {
             } catch {
                 completed(.failure(.invalidData))
             }
-            
         }
         task.resume()
     }
     
-    func getUserInfo(username: String, completed: @escaping (Result<User, GHError>) -> Void) {
+    /// Get user information
+    /// - Parameters:
+    ///   - username: Username
+    ///   - completed: Callback
+    public func getUserInfo(username: String, completed: @escaping (Result<User, GHError>) -> Void) {
+        
         let endpoint = baseUrl + "\(username)"
         
         guard let url = URL(string: endpoint) else {
@@ -82,19 +102,21 @@ class NetworkManager {
             } catch {
                 completed(.failure(.invalidData))
             }
-            
         }
         task.resume()
     }
     
-    func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
+    /// Download image and cache it
+    /// - Parameters:
+    ///   - urlString: Image url
+    ///   - completed: Callback
+    public func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
         let cacheKey = NSString(string: urlString)
         
         if let image = cache.object(forKey: cacheKey) {
             completed(image)
             return
         }
-        
         
         guard let url = URL(string: urlString) else {
             completed(nil)

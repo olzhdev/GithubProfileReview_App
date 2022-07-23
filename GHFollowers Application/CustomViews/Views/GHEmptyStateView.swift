@@ -2,31 +2,37 @@
 //  GHEmptyStateView.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 05.07.2022.
+//   
 //
 
 import UIKit
 
 class GHEmptyStateView: UIView {
+    
+    // MARK: - Elements
     let messageLabel = GHTitleLabel(textAlignment: .center, fontSize: 28)
     let logoImageView = UIImageView()
     
+    
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(message: String){
+    init(message: String) {
         super.init(frame: .zero)
         messageLabel.text = message
-        configure()
+        configureUI()
     }
     
-    private func configure() {
+    
+    // MARK: - Private
+    private func configureUI() {
         addSubview(messageLabel)
         addSubview(logoImageView)
         

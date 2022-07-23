@@ -2,23 +2,28 @@
 //  SearchVC.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 03.07.2022.
+//  
 //
 
 import UIKit
 
+/// First screen
 class SearchVC: UIViewController {
     
+    // MARK: - Properties and elements
     let logoImageView = UIImageView()
     let usernameTextField = GHTextField()
-    let callToActionButton = GHButton(color: .systemGreen, title: "Get Followers!")
-
+    let callToActionButton = GHButton(color: .systemGreen, title: "Get Profile!")
+    
+    /// Flag to check is textfield is empty
     var isUsernameEntered: Bool { return usernameTextField.text!.isEmpty }
     
+    
+    // MARK: - Lifcycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configure()
+        configureUI()
         constraint()
         createDismissKeyboardTapGesture()
     }
@@ -29,10 +34,13 @@ class SearchVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func createDismissKeyboardTapGesture() {
+    
+    // MARK: - Private
+    private func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
+    
     
     @objc func pushFollowerListVC() {
         guard !isUsernameEntered else
@@ -43,19 +51,18 @@ class SearchVC: UIViewController {
         
         usernameTextField.resignFirstResponder()
         
-        //let followerListVC = FollowersListVC(username: usernameTextField.text!)
         let userInfoVC = UserInfoVC(username: usernameTextField.text!)
         
         navigationController?.pushViewController(userInfoVC, animated: true)
     }
     
     
-    
-    private func configure() {
+    private func configureUI() {
         logoImageView.image = Images.ghLogo
         usernameTextField.delegate = self
         callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
     }
+    
     
     private func constraint() {
         view.addSubview(logoImageView)
@@ -84,9 +91,10 @@ class SearchVC: UIViewController {
 
 }
 
+// MARK: - Extensions
+
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //Pass data to next viewc.
         pushFollowerListVC()
         return true
     }

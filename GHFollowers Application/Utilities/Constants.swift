@@ -2,12 +2,13 @@
 //  Constants.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 05.07.2022.
+// 
 //
 
 import Foundation
 import UIKit
 
+/// Constans of SF Symbols used
 enum SFSymbols {
     static let location = UIImage(systemName: "mappin.and.ellipse")
     static let repos = UIImage(systemName:  "folder")
@@ -17,6 +18,7 @@ enum SFSymbols {
 
 }
 
+/// Constants of image names used
 enum Images {
     static let ghLogo = UIImage(named: "gh-logo")
     static let placeholder = UIImage(named: "avatar-placeholder")

@@ -2,32 +2,42 @@
 //  GHItemInfoView.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 06.07.2022.
+//  
 //
 
 import UIKit
 
+/// Types of items (icons)
 enum ItemInfoType {
     case repos, gists, followers, following
 }
 
+/// Custom view for item (symbol and count)
 class GHItemInfoView: UIView {
-
+    
+    // MARK: - Elements
     let symbolImageView = UIImageView()
     let titleLabel = GHTitleLabel(textAlignment: .left, fontSize: 14)
     let countLabel = GHTitleLabel(textAlignment: .center, fontSize: 14)
     
     
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
-    func set(itemInfoType: ItemInfoType, withCount count: Int) {
+    // MARK: - Public
+    /// Configure view
+    /// - Parameters:
+    ///   - itemInfoType: Type of symbol
+    ///   - count: Count of item (count of followers eg)
+    public func set(itemInfoType: ItemInfoType, withCount count: Int) {
         switch itemInfoType {
         case .repos:
             symbolImageView.image = SFSymbols.repos
@@ -45,7 +55,9 @@ class GHItemInfoView: UIView {
         countLabel.text = String(count)
     }
     
-    private func configure() {
+    
+    // MARK: - Private
+    private func configureUI() {
         addSubview(symbolImageView)
         addSubview(titleLabel)
         addSubview(countLabel)

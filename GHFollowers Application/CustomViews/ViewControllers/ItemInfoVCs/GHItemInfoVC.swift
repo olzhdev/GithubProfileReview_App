@@ -2,12 +2,15 @@
 //  GHItemInfoVC.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 06.07.2022.
+//  
 //
 
 import UIKit
 
+/// Item View Controller
 class GHItemInfoVC: UIViewController {
+    
+    // MARK: - Properties
     
     let stackView = UIStackView()
     let itemInfoViewOne = GHItemInfoView()
@@ -15,6 +18,9 @@ class GHItemInfoVC: UIViewController {
     let actionButton = GHButton()
     
     var user: User!
+
+    
+    // MARK: - Inits
 
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
@@ -25,6 +31,9 @@ class GHItemInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackgroundView()
@@ -33,6 +42,9 @@ class GHItemInfoVC: UIViewController {
         configureActionButton()
     }
     
+    
+    // MARK: - Private
+
    private func configureBackgroundView() {
         view.backgroundColor = .secondarySystemBackground
         view.layer.cornerRadius = 18

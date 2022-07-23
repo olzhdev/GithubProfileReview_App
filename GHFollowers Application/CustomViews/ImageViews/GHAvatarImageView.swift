@@ -2,33 +2,49 @@
 //  GHAvatarImageView.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 04.07.2022.
+//  
 //
 
 import UIKit
 
 class GHAvatarImageView: UIImageView {
-    let cache = NetworkManager.shared.cache
+    // MARK: - Properties
+    
+    /// Instance of cache
+    let cache = APICaller.shared.cache
+    /// Placegolder image
     let placeholderImage = Images.placeholder
+    
+    
+    // MARK: - Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+    
+    // MARK: - Private
+    
+    /// Layout configuration
+    private func configureUI() {
         layer.cornerRadius = 10
         clipsToBounds = true
         image = placeholderImage
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func downloadImage(fromURL url: String) {
-        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+    
+    // MARK: - Public
+    
+    /// Method for downloading image
+    /// - Parameter url: URL of image
+    public func downloadImage(fromURL url: String) {
+        APICaller.shared.downloadImage(from: url) { [weak self] image in
             guard let self = self else { return }
             DispatchQueue.main.async { self.image = image }
         }

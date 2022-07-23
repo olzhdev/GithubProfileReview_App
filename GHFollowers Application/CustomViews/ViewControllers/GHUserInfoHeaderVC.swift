@@ -2,13 +2,14 @@
 //  GFUserInfoHeaderVC.swift
 //  GHFollowers Application
 //
-//  Created by MAC on 05.07.2022.
+//  
 //
 
 import UIKit
 
 class GHUserInfoHeaderVC: UIViewController {
     
+    // MARK: - Properties and elements
     let avatarImageView = GHAvatarImageView(frame: .zero)
     let usernameLabel = GHTitleLabel(textAlignment: .left, fontSize: 34)
     let nameLabel = GHSecondaryTitleLabel(fontSize: 18)
@@ -18,12 +19,16 @@ class GHUserInfoHeaderVC: UIViewController {
     
     var user: User!
     
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
         constraint()
     }
     
+    
+    // MARK: - Inits
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
         self.user = user
@@ -33,7 +38,9 @@ class GHUserInfoHeaderVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
+    
+    // MARK: - Private
+    private func configureUI() {
         avatarImageView.downloadImage(fromURL: user.avatarUrl)
         
         usernameLabel.text = user.login
