@@ -7,10 +7,13 @@
 
 import UIKit
 
+//protocol UserInfoVCDelegate: AnyObject {
+//    func didRequestFollowers(with username: String)
+//}
+
 protocol UserInfoVCDelegate: AnyObject {
     func didRequestFollowers(with username: String)
 }
-
 
 class UserInfoVC: UIViewController {
     // MARK: - Properties
@@ -21,18 +24,28 @@ class UserInfoVC: UIViewController {
     let dateLabel = GHBodyLabel(textAlignment: .center)
     
     var userName: String!
-    var followerListVCDelegate: UserInfoVCDelegate!
+    weak var userInfoVCDelegate: UserInfoVCDelegate!
     
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
         getUserInfo()
+        configureViewController()
         constraint()
     }
     
+    // MARK: - Inits
+    
+    init(username: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.userName = username
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Private
     
@@ -129,7 +142,9 @@ extension UserInfoVC: GHFollowerItemVCDelegate, GHRepoItemVCDelegate {
             presentGHAlertOnMainThread(title: "No followers", message: "User has no followers.", buttonTitle: "Ok")
             return
         }
-        followerListVCDelegate.didRequestFollowers(with: user.login)
+        
+        print("1: \(user)")
+        userInfoVCDelegate.didRequestFollowers(with: userName)
         dismissVC()
     }
     
