@@ -3,7 +3,6 @@
 //  GHFollowers Application
 //
 //  
-//
 
 import UIKit
 
