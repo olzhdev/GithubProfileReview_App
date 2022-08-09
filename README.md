@@ -18,6 +18,7 @@ GitHub Profile Reviwer is an MVC practice project. It is an application where us
 * No third party libraries used
 * Image caching
 * Custom UIAlerts
+* URLSession
 * Pagintaion
 * Data persistence using UserDefaults (favoriting users)
 * REST API (GitHub API)
