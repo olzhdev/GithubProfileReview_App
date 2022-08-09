@@ -13,7 +13,7 @@ class SearchVC: UIViewController {
     // MARK: - Properties and elements
     let logoImageView = UIImageView()
     let usernameTextField = GHTextField()
-    let callToActionButton = GHButton(color: .systemGreen, title: "Get Profile!")
+    let callToActionButton = GHButton(color: .systemGreen, title: "Get Followers!")
     
     /// Flag to check is textfield is empty
     var isUsernameEntered: Bool { return usernameTextField.text!.isEmpty }
